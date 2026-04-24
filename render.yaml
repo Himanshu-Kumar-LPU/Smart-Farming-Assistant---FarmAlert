@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: farmalert-model-api
+    runtime: python
+    rootDir: python_api
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+
+  - type: web
+    name: farmalert-backend
+    runtime: node
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASSWORD
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: APP_BASE_URL
+        sync: false
+      - key: LEAF_PREDICT_API_URL
+        sync: false
+      - key: FRUIT_PREDICT_API_URL
+        sync: false
+      - key: WEATHER_API_KEY
+        sync: false
+      - key: HUGGING_FACE_API_KEY
+        sync: false
+      - key: HUGGING_FACE_MODEL
+        value: openai/gpt-oss-120b:fastest
+      - key: HUGGING_FACE_ROUTER
+        value: https://router.huggingface.co/v1/chat/completions
+      - key: PYTHON_ANALYSIS_TIMEOUT
+        value: "120000"

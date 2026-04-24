@@ -28,5 +28,17 @@
     "guidance": "<b>Disease/Pest:</b> Yellow Leaf Spot or Nitrogen Deficiency<br><b>Cause:</b> The yellowing of wheat leaves can be caused by a fungal disease known as Yellow Leaf Spot or by a lack of nitrogen in the soil. Prolonged dryness can exacerbate the condition.<br><b>Solution:</b> For chemical treatment, apply a fungicide to control Yellow Leaf Spot, and consider a nitrogen-based fertilizer to address potential nitrogen deficiency. For an organic solution, introduce nitrogen-rich compost or manure into the soil and practice crop rotation to prevent fungal diseases.<br><b>Prevention:</b> To prevent such issues, ensure regular and adequate watering of the wheat crop, maintain soil fertility through balanced fertilization, and adopt resistant wheat varieties to reduce the risk of Yellow Leaf Spot.",
     "guidanceUpdatedAt": "2026-04-23T14:31:16.536Z",
     "guidanceUpdatedBy": "kumarhimanshu9605@gmail.com"
+  },
+  {
+    "id": 1777020296867,
+    "name": "Himanshu Kumar",
+    "location": "nawada",
+    "crop": "wheat",
+    "problem": "yellow leaf",
+    "advice": "Probable Nitrogen Deficiency or Iron Chlorosis: If uniform yellowing, apply Urea (20kg/hectare). If interveinal yellowing (veins green), apply Iron sulphate (5kg/hectare).",
+    "imageUrl": "",
+    "reportedAt": "2026-04-24T08:44:56.867Z",
+    "userId": "69e3750b96ee3a29289a1ff8",
+    "userEmail": "kumarhimanshu9605@gmail.com"
   }
 ]

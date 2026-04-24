@@ -6,6 +6,11 @@ import os
 
 app = Flask(__name__)
 
+
+@app.route("/health", methods=["GET"])
+def health_check():
+    return jsonify({"status": "ok"})
+
 BASE_DIR = os.path.dirname(__file__)
 CLASS_NAMES_PATH = os.path.join(BASE_DIR, "class_names.json")
 FRUIT_MODEL_PATH = os.path.join(BASE_DIR, "models", "fruit_model.h5")
@@ -222,4 +227,6 @@ def predict_fruit():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000)
+    host = os.getenv("HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", "5000"))
+    app.run(host=host, port=port)

@@ -64,6 +64,7 @@ const HUGGING_FACE_ROUTER = process.env.HUGGING_FACE_ROUTER || "https://router.h
 const HUGGING_FACE_MODEL = process.env.HUGGING_FACE_MODEL || "openai/gpt-oss-120b:fastest";
 const HUGGING_FACE_API_KEY = process.env.HUGGING_FACE_API_KEY;
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY || "";
+const APP_BASE_URL = process.env.APP_BASE_URL || `http://localhost:${port}`;
 
 fs.mkdirSync(reportUploadsDir, { recursive: true });
 
@@ -71,6 +72,10 @@ app.use(bodyParser.json({ limit: "5mb" }));
 app.use(cors());
 app.use(express.static(frontendPath, { index: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 // Connect to MongoDB
 connectDB();
@@ -98,9 +103,9 @@ async function sendEmailToAdmin(reportData) {
       <p><strong>Crop:</strong> ${reportData.crop}</p>
       <p><strong>Problem:</strong> ${reportData.problem}</p>
       <p><strong>Submitted At:</strong> ${new Date(reportData.reportedAt).toLocaleString()}</p>
-      ${reportData.imageUrl ? `<p><strong>Report Image:</strong> <a href="http://localhost:${port}${reportData.imageUrl}" target="_blank" rel="noopener">View uploaded image</a></p>` : ""}
+      ${reportData.imageUrl ? `<p><strong>Report Image:</strong> <a href="${APP_BASE_URL}${reportData.imageUrl}" target="_blank" rel="noopener">View uploaded image</a></p>` : ""}
       <hr>
-      <p><a href="http://localhost:3000/admin.html">View all reports in Admin Dashboard</a></p>
+      <p><a href="${APP_BASE_URL}/admin.html">View all reports in Admin Dashboard</a></p>
     `;
 
     await emailTransporter.sendMail({
