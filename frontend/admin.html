@@ -1008,6 +1008,7 @@
     let currentUsers = [];
     let currentStats = {};
     let currentReportId = null;
+    let currentReportGuidanceDraft = '';
     const API_FALLBACK_ORIGIN = 'http://127.0.0.1:3000';
 
     function getApiUrl(path) {
@@ -1275,6 +1276,7 @@
         return;
       }
       currentReportId = reportId;
+      currentReportGuidanceDraft = report.advice || report.guidance || '';
       
       const content = `
         ${report.imageUrl ? `<img class="report-modal-image" src="${escapeHtml(report.imageUrl)}" alt="Report issue image">` : ''}
@@ -1284,11 +1286,63 @@
         <div class="report-detail"><strong>Problem:</strong> ${report.problem}</div>
         <div class="report-detail"><strong>Location:</strong> ${report.location}</div>
         <div class="report-detail"><strong>Submitted:</strong> ${new Date(report.reportedAt).toLocaleString()}</div>
-        <div class="report-detail"><strong>Advice:</strong> ${report.advice || report.guidance || 'N/A'}</div>
+        <div class="report-detail"><strong>Advice:</strong> ${escapeHtml(report.advice || report.guidance || 'N/A')}</div>
+        <div style="margin-top: 18px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Edit Guidance</label>
+          <textarea id="reportGuidanceEditor" rows="8" style="width:100%; padding:14px; border:1px solid #d1d5db; border-radius:14px; font: inherit; resize: vertical;">${escapeHtml(currentReportGuidanceDraft)}</textarea>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="updateCurrentReportGuidance()">Update Guidance</button>
+            <button class="btn btn-secondary" onclick="resetCurrentReportGuidance()">Reset</button>
+          </div>
+        </div>
       `;
       
       document.getElementById('reportDetailContent').innerHTML = content;
       document.getElementById('reportModal').classList.add('active');
+    }
+
+    function resetCurrentReportGuidance() {
+      const editor = document.getElementById('reportGuidanceEditor');
+      if (!editor) return;
+      editor.value = currentReportGuidanceDraft || '';
+    }
+
+    async function updateCurrentReportGuidance() {
+      if (!currentReportId) {
+        showToast('No report selected', 'warning');
+        return;
+      }
+
+      const editor = document.getElementById('reportGuidanceEditor');
+      const nextAdvice = String(editor?.value || '').trim();
+      if (!nextAdvice) {
+        showToast('Guidance cannot be empty', 'warning');
+        return;
+      }
+
+      try {
+        const response = await fetch(getApiUrl(`/api/admin/reports/${currentReportId}`), {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${adminToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ advice: nextAdvice })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showToast(data.message || 'Failed to update guidance', 'error');
+          return;
+        }
+
+        showToast('Guidance updated successfully', 'success');
+        currentReportGuidanceDraft = nextAdvice;
+        await loadReports();
+        viewReport(currentReportId);
+      } catch (error) {
+        showToast(`Error updating guidance: ${error.message}`, 'error');
+      }
     }
 
     function closeModal() {

@@ -1,14 +1,32 @@
 [
   {
-    "id": 1776794063260,
+    "id": 1776966815901,
+    "name": "Himanshu Kumar",
+    "location": "Punjab",
+    "crop": "Rice",
+    "problem": "yello leaf",
+    "advice": "<b>Disease/Pest:</b> Nitrogen Deficiency or Leaf Blight<br><b>Cause:</b> Lack of nitrogen in the soil or fungal infection<br><b>Solution:</b> Chemical treatment: Apply nitrogen-based fertilizers or fungicides. Organic solution: Use compost or green manure to enrich soil with nitrogen, and remove infected leaves to prevent spread<br><b>Prevention:</b> Maintain proper soil fertility, use balanced fertilizers, and practice crop rotation to prevent disease",
+    "imageUrl": "/uploads/reports/report-1776966815125-37t2q11z.jpg",
+    "reportedAt": "2026-04-23T17:53:35.901Z",
+    "userId": "69ea58db654adeb5ca38ec53",
+    "userEmail": "kumarhimanshu995573@gmail.com",
+    "guidance": "<b>Disease/Pest:</b> Nitrogen Deficiency or Leaf Blight<br><b>Cause:</b> Lack of nitrogen in the soil or fungal infection<br><b>Solution:</b> Chemical treatment: Apply nitrogen-based fertilizers or fungicides. Organic solution: Use compost or green manure to enrich soil with nitrogen, and remove infected leaves to prevent spread<br><b>Prevention:</b> Maintain proper soil fertility, use balanced fertilizers, and practice crop rotation to prevent disease",
+    "guidanceUpdatedAt": "2026-04-23T17:57:14.119Z",
+    "guidanceUpdatedBy": "kumarhimanshu9605@gmail.com"
+  },
+  {
+    "id": 1776936394819,
     "name": "Himanshu Kumar",
     "location": "Nawada",
     "crop": "wheat",
-    "problem": "yellow leaf",
-    "advice": "Probable Nitrogen Deficiency or Iron Chlorosis: If uniform yellowing, apply Urea (20kg/hectare). If interveinal yellowing (veins green), apply Iron sulphate (5kg/hectare).",
-    "imageUrl": "/uploads/reports/report-1776794063253-jsi00pth.jpg",
-    "reportedAt": "2026-04-21T17:54:23.260Z",
-    "userId": "69e7b97de1d8724f326987d2",
-    "userEmail": "kumarhimanshu995573@gmail.com"
+    "problem": "my wheat leaf is getting yellow leaf and it is getting day by day dry",
+    "advice": "<b>Disease/Pest:</b> Yellow Leaf Spot or Nitrogen Deficiency<br><b>Cause:</b> The yellowing of wheat leaves can be caused by a fungal disease known as Yellow Leaf Spot or by a lack of nitrogen in the soil. Prolonged dryness can exacerbate the condition.<br><b>Solution:</b> For chemical treatment, apply a fungicide to control Yellow Leaf Spot, and consider a nitrogen-based fertilizer to address potential nitrogen deficiency. For an organic solution, introduce nitrogen-rich compost or manure into the soil and practice crop rotation to prevent fungal diseases.<br><b>Prevention:</b> To prevent such issues, ensure regular and adequate watering of the wheat crop, maintain soil fertility through balanced fertilization, and adopt resistant wheat varieties to reduce the risk of Yellow Leaf Spot.",
+    "imageUrl": "/uploads/reports/report-1776936393704-mlc2tvp3.jpg",
+    "reportedAt": "2026-04-23T09:26:34.819Z",
+    "userId": "69e3750b96ee3a29289a1ff8",
+    "userEmail": "kumarhimanshu9605@gmail.com",
+    "guidance": "<b>Disease/Pest:</b> Yellow Leaf Spot or Nitrogen Deficiency<br><b>Cause:</b> The yellowing of wheat leaves can be caused by a fungal disease known as Yellow Leaf Spot or by a lack of nitrogen in the soil. Prolonged dryness can exacerbate the condition.<br><b>Solution:</b> For chemical treatment, apply a fungicide to control Yellow Leaf Spot, and consider a nitrogen-based fertilizer to address potential nitrogen deficiency. For an organic solution, introduce nitrogen-rich compost or manure into the soil and practice crop rotation to prevent fungal diseases.<br><b>Prevention:</b> To prevent such issues, ensure regular and adequate watering of the wheat crop, maintain soil fertility through balanced fertilization, and adopt resistant wheat varieties to reduce the risk of Yellow Leaf Spot.",
+    "guidanceUpdatedAt": "2026-04-23T14:31:16.536Z",
+    "guidanceUpdatedBy": "kumarhimanshu9605@gmail.com"
   }
 ]

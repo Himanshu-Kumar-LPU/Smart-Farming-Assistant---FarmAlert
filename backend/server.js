@@ -452,13 +452,11 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
       if (typeResult?.error) {
         return res.status(400).json({ error: typeResult.error });
       }
-      const detectedType = typeResult?.type;
+      let detectedType = typeResult?.type;
 
       if (detectedType === "non_plant") {
-        return res.status(400).json({
-          error: "Uploaded image does not look like a crop/leaf photo.",
-          suggestion: "Please upload a clear plant leaf or fruit image for analysis."
-        });
+        console.warn("Type detector returned non_plant. Falling back to leaf analysis for robustness.");
+        detectedType = "leaf";
       }
 
       if (detectedType !== "leaf" && detectedType !== "fruit") {
@@ -549,6 +547,17 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
     }
 
     if (analysisResult.error) {
+      const normalizedError = String(analysisResult.error || "").toLowerCase();
+      if (normalizedError.includes("does not look like a crop") || normalizedError.includes("non_plant")) {
+        return res.json({
+          type: "leaf",
+          model_used: "leaf_model",
+          confidence: 0,
+          low_confidence: true,
+          message: "Low confidence. Unable to detect disease.",
+          suggestion: "Upload a clearer close-up image of a leaf with less background."
+        });
+      }
       return res.status(400).json(analysisResult);
     }
 
@@ -1202,6 +1211,36 @@ app.delete("/api/admin/reports/:id", checkAdminToken, (req, res) => {
   res.json({ 
     message: "Report deleted",
     deletedReport
+  });
+});
+
+// Update report guidance/advice
+app.put("/api/admin/reports/:id", checkAdminToken, (req, res) => {
+  const reportId = parseInt(req.params.id);
+  const index = data.findIndex(r => r.id === reportId);
+  const nextAdvice = String(req.body?.advice ?? req.body?.guidance ?? "").trim();
+
+  if (index === -1) {
+    return res.status(404).json({ message: "Report not found" });
+  }
+
+  if (!nextAdvice) {
+    return res.status(400).json({ message: "Guidance text is required" });
+  }
+
+  data[index] = {
+    ...data[index],
+    advice: nextAdvice,
+    guidance: nextAdvice,
+    guidanceUpdatedAt: new Date().toISOString(),
+    guidanceUpdatedBy: req.admin?.email || "admin"
+  };
+
+  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+
+  res.json({
+    message: "Report guidance updated",
+    report: data[index]
   });
 });
 

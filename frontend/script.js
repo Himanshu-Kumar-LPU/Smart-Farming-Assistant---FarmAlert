@@ -256,7 +256,7 @@ function getAnalyzeFriendlyError(error) {
   ) {
     return {
       type: "warning",
-      text: "This image is not a valid plant sample. Please upload a close, clear leaf or fruit photo."
+      text: trUI("analysisLowConfidence", "Low confidence. Please upload a clearer close-up leaf or fruit image.")
     };
   }
 
