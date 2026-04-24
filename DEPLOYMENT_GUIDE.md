@@ -114,3 +114,27 @@ If prediction fails after deploy:
 2. Confirm model files exist in `python_api/models`.
 3. Confirm backend env URLs point to the live Python API.
 4. Re-deploy backend after env update.
+
+## 7) If Render Deploy Fails
+
+Use this checklist based on common failures:
+
+1. Build fails while installing TensorFlow:
+	- Ensure blueprint file has `PYTHON_VERSION=3.11.9` for model service.
+	- Confirm `python_api/requirements.txt` uses pinned versions.
+
+2. Model API deploys but returns 503 on fruit endpoint:
+	- Add `python_api/models/fruit_model.h5`.
+	- Add `python_api/models/fruit_class_names.json`.
+
+3. Backend runs but prediction fails:
+	- Check `LEAF_PREDICT_API_URL` and `FRUIT_PREDICT_API_URL` in backend env vars.
+	- URLs must point to deployed model API, not localhost.
+
+4. Backend login/email errors:
+	- Set `EMAIL_USER`, `EMAIL_PASSWORD`, and `ADMIN_EMAIL`.
+	- Use Gmail App Password, not account password.
+
+5. App starts but DB operations fail:
+	- Verify `MONGODB_URI` and Atlas Network Access.
+	- Add `0.0.0.0/0` in Atlas IP access list for testing.
